@@ -1963,6 +1963,7 @@ public class Luong_7_TBA_game {
            enter = next.nextLine();
            System.out.println("ALL OR NOTHING!!! GHAAAA!!!");
            enter = next.nextLine();
+           monsterisalive = true;
            //#while 
            /* while loop that will let players fight the boss */
            while(monsterisalive){
@@ -1975,25 +1976,25 @@ public class Luong_7_TBA_game {
                    System.out.println("WHOA! The witch lost 30 HP. The boss now has " + bosshealth + " HP." );
                    enter = next.nextLine();
                    System.out.println("You now have " + playerhealth + " HP.");
-               }else if(answer.contains("ice")) {
+               }else if(attack.contains("ice")) {
                    System.out.println("Alright, it's gonna be a little chilly...GHAAAA!!!");
                    bosshealth = bosshealth-20;
                    System.out.println("BRRR... The evil witch lost 20 HP. The boss now has " + bosshealth + " HP.");
                    enter = next.nextLine();
                    System.out.println("You now have " + playerhealth + " HP.");
-               }else if(answer.contains("lightening")) {
+               }else if(attack.contains("lightening")) {
                    System.out.println("Someone's gonna get fried today! ZAAAAP!!!");
                    bosshealth = bosshealth-40;
                    System.out.println("OUCH!!! The evil witch lost 40 HP. The boss now has " + bosshealth + " HP.");
                    enter = next.nextLine();
                    System.out.println("You now have " + playerhealth + " HP");
-               }else if (answer.contains("throw rocks")) {
+               }else if (attack.contains("throw rocks")) {
                    System.out.println("Incoming Boulder...BOOOOOMM!!!");
                    bosshealth = bosshealth-30;
                    System.out.println("The witch lost 30 HP. It now has " + bosshealth + " HP.");
                    enter = next.nextLine();
                    System.out.println("You now have " + playerhealth + " HP.");
-               }else if (answer.contains("sacred swords")) {
+               }else if (attack.contains("sacred sword")) {
                    System.out.println(username + " summons the guardians of the 9 sacred swords, and ");
                    System.out.println("the guardians released their swords to punish the wicked witch...");
                    enter = next.nextLine();
@@ -2003,7 +2004,7 @@ public class Luong_7_TBA_game {
                    System.out.println("HP.");
                    enter = next.nextLine();
                    System.out.println("You now have " + playerhealth + " HP.");
-               }else if (answer.contains("cosmic rays")) {
+               }else if (attack.contains("cosmic rays")) {
                    System.out.println(username + " casts a spell that absorbs all of the radiation from space...");
                    System.out.println("Then a large light bombards the witch and inflicts 130 HP.");
                    bosshealth = bosshealth-130;
@@ -2011,7 +2012,7 @@ public class Luong_7_TBA_game {
                    System.out.println("The boss now has " + bosshealth + " HP.");
                    enter = next.nextLine();
                    System.out.println(username + " now has " + playerhealth + " HP.");
-               }else if (answer.contains("teleport")) {
+               }else if (attack.contains("teleport")) {
                    System.out.println(username + " creates a blue portal and jumps inside the portal...");
                    enter = next.nextLine();
                    System.out.println(username + " then teleports behind the witch and strikes...Then jumps back in...");
@@ -2024,13 +2025,13 @@ public class Luong_7_TBA_game {
                    System.out.println("WOW!!!" + username + " inflicted 210 HP. The boss now has " + bosshealth + " HP.");
                    enter = next.nextLine();
                    System.out.println("You now have " + playerhealth + " HP.");
-               }else if(answer.contains("wind")) {
+               }else if(attack.contains("wind")) {
                    System.out.println("Alright, let's finish this up...WHIRL!!!");
                    bosshealth = bosshealth-10;
                    System.out.println("The evil witch lost 10 HP. The boss now has " + bosshealth + " HP.");
                    enter = next.nextLine();
                    System.out.println("You now have " + playerhealth + " HP.");
-               }else if (answer.contains("heal")){
+               }else if (attack.contains("heal")){
                    healing_challenge3();
                    System.out.println("\n");
                    System.out.println(username + "'s HP increased 300 health points and now have " + playerhealth + ".");
@@ -2114,6 +2115,11 @@ public class Luong_7_TBA_game {
                 }
                
                if(bosshealth <= zero) { //check to see if boss is still alive
+                   //#win
+                   /* This is the conditions to win. The boss's health must equal to or less than zero. If you win the 
+                      boolean monsterisalive is equal to false and the player will come to the endgame method to 
+                      displayt he credits...
+                   */
                    System.out.println("You defeated the boss...Congratulations, you have won the war.");
                    enter = next.nextLine();
                    System.out.println("The witch has disappeared, vanished forever in a black hole that consumed the boss.");
@@ -2139,10 +2145,14 @@ public class Luong_7_TBA_game {
                    if (boss_attacks == 0) {
                        System.out.println("'Night Shadow!'");
                        //this will determine which player gets hit; you or Naga
-                       if(which == 0) { //player gets hiy
+                       if(which == 0) { //player gets hit
                            enter = next.nextLine();
                            System.out.println("The witch summons a dark cloud from above with her staff...");
                            enter = next.nextLine();
+                           /* #enemyobject
+                            The witch affects the protagonist/player by harming the player's health through savage attacks that 
+                            inflicts large amounts of damage to the player. 
+                           */
                            System.out.println("The dark cloud duplicates and strikes " + username + ".");
                            enter = next.nextLine();
                            System.out.println("Ouch " + username + " loses 200 HP.");
@@ -2431,7 +2441,7 @@ public class Luong_7_TBA_game {
                        }
                    }
                }
-               //#lose-playr loses all of HP 
+               //#lose-player loses all of HP 
                if(playerhealth <= zero) { //in case player loses all of his/her health
                    System.out.println("OH NO!!!" + username + " lost was defeated!");
                    System.out.println("Naga currently has " + nagahealth + " HP.");
@@ -2533,7 +2543,14 @@ public class Luong_7_TBA_game {
                System.out.println("You are at maximum health.");
            }
     }   
-       
+               //#method5()
+       /* This method will constantly be called because everytime the player fights, he/she will be given the 
+          opportunity to heal. As a result, I used this method to prevent the redundant typing of the same set of codes
+          when the player wants to heal. This method will first check whether or not the player has any health potions
+          left. If the player does, the program will check if the player's health is set to the conditions, such as below
+          3500, equal to 3500, or over 3500. Depending on the conditions that are satisfied, the game will decide if the 
+          player is able to take the potion.
+       */
        static void healing_challenge3() { //this is where the player will be able to heal himself/herself in boss challenge
            System.out.println(" You open up the bag to check your inventory...");
            enter = next.nextLine();
